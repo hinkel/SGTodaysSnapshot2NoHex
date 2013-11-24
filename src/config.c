@@ -101,21 +101,21 @@ static void resetConf(void)
     cfg.version = EEPROM_CONF_VERSION;
     cfg.mixerConfiguration = MULTITYPE_QUADX;
     featureClearAll();
-//    featureSet(FEATURE_VBAT);
-    featureSet(FEATURE_PPM);
-//    featureSet(FEATURE_FAILSAFE);
+      featureSet(FEATURE_VBAT);
+//    featureSet(FEATURE_PPM);
+      featureSet(FEATURE_FAILSAFE);
 //    featureSet(FEATURE_LCD);
-//    featureSet(FEATURE_GPS);
+      featureSet(FEATURE_GPS);
 //    featureSet(FEATURE_PASS);                   // Just pass Throttlechannel
 //    featureSet(FEATURE_SONAR);
 
-    cfg.P8[ROLL]                  = 35;         // 40
-    cfg.I8[ROLL]                  = 20;
-    cfg.D8[ROLL]                  = 30;
+    cfg.P8[ROLL]                  = 38;         // 40
+    cfg.I8[ROLL]                  = 30;
+    cfg.D8[ROLL]                  = 23;
 
-    cfg.P8[PITCH]                 = 35;         // 40
-    cfg.I8[PITCH]                 = 20;
-    cfg.D8[PITCH]                 = 30;
+    cfg.P8[PITCH]                 = 38;         // 40
+    cfg.I8[PITCH]                 = 30;
+    cfg.D8[PITCH]                 = 23;
 
     cfg.P8[YAW]                   = 60;         // 70
     cfg.I8[YAW]                   = 45;
@@ -124,15 +124,15 @@ static void resetConf(void)
     cfg.I8[PIDALT]                = 30;
     cfg.D8[PIDALT]                = 80;
 
-    cfg.P8[PIDPOS]                = 10;         // FIND YOUR VALUE
+    cfg.P8[PIDPOS]                = 12;         // FIND YOUR VALUE
     cfg.I8[PIDPOS]                =  0;         // NOT USED
     cfg.D8[PIDPOS]                =  0;         // NOT USED
 
     cfg.P8[PIDPOSR]               = 50;         // FIND YOUR VALUE                    // Controls the speed part with my PH logic
     cfg.I8[PIDPOSR]               =  0;         // 25;  // DANGER "I" may lead to circeling   // Controls the speed part with my PH logic
-    cfg.D8[PIDPOSR]               = 40;         // FIND YOUR VALUE                    // Controls the speed part with my PH logic
+    cfg.D8[PIDPOSR]               = 50;         // FIND YOUR VALUE                    // Controls the speed part with my PH logic
 
-    cfg.P8[PIDNAVR]               = 15;         // 14 More ?
+    cfg.P8[PIDNAVR]               = 45;         // 14 More ?
     cfg.I8[PIDNAVR]               =  0;         // NAV_I * 100;                       // Scaling/Purpose unchanged
     cfg.D8[PIDNAVR]               =  0;         // NAV_D * 1000;                      // Scaling/Purpose unchanged
 
@@ -148,16 +148,16 @@ static void resetConf(void)
 //    cfg.I8[PIDNAVR]               = 20;         // NAV_I * 100;
 //    cfg.D8[PIDNAVR]               = 80;         // NAV_D * 1000;
 
-    cfg.P8[PIDLEVEL]              = 60;         // 70
-    cfg.I8[PIDLEVEL]              = 10;
+    cfg.P8[PIDLEVEL]              = 75;         // 70
+    cfg.I8[PIDLEVEL]              = 20;
     cfg.D8[PIDLEVEL]              = 50;
 
-    cfg.P8[PIDMAG]                = 80;         // cfg.P8[PIDVEL] = 0;// cfg.I8[PIDVEL] = 0;// cfg.D8[PIDVEL] = 0;
+    cfg.P8[PIDMAG]                = 50;         // cfg.P8[PIDVEL] = 0;// cfg.I8[PIDVEL] = 0;// cfg.D8[PIDVEL] = 0;
 
-    cfg.rcRate8                   = 100;
-    cfg.rcExpo8                   = 80;         // cfg.rollPitchRate = 0;// cfg.yawRate = 0;// cfg.dynThrPID = 0;
-    cfg.thrMid8                   = 50;
-    // cfg.thrExpo8 = 0;//for (i = 0; i < CHECKBOXITEMS; i++)//cfg.activate[i] = 0;
+    cfg.rcRate8                   = 45;
+    cfg.rcExpo8                   = 50;         // cfg.rollPitchRate = 0;// cfg.yawRate = 0;// cfg.dynThrPID = 0;
+    cfg.thrMid8                   = 55;
+    cfg.thrExpo8                  = 50;         //for (i = 0; i < CHECKBOXITEMS; i++)//cfg.activate[i] = 0;
     // cfg.angleTrim[0] = 0;// cfg.angleTrim[1] = 0;// cfg.accZero[0] = 0;// cfg.accZero[1] = 0;
     // cfg.accZero[2] = 0;// cfg.mag_dec = 0;    // For example, -6deg 37min, = -637 Japan, format is [sign]dddmm (degreesminutes) default is zero.
     memcpy(&cfg.align, default_align, sizeof(cfg.align));
@@ -191,7 +191,7 @@ static void resetConf(void)
     cfg.bar_dbg                   = 0;          // Crashpilot: 1 = Debug Barovalues //cfg.baro_noise_lpf = 0.6f;// Crashpilot: Not used anymore//cfg.baro_cf = 0.985f;// Crashpilot: Not used anymore
 
     // Autoland
-    cfg.al_barolr                 = 50;         // [10 - 200cm/s] Baro Landingrate
+    cfg.al_barolr                 = 110;         // [10 - 200cm/s] Baro Landingrate
     cfg.al_snrlr                  = 50;         // [10 - 200cm/s] Sonar Landingrate - You can specify different landingfactor here on sonar contact, because sonar land maybe too fast when snr_cf is high
     cfg.al_debounce               = 5;          // (0-20%) 0 Disables. Defines a Throttlelimiter on Autoland. Percentage defines the maximum deviation of assumed hoverthrottle during Autoland
     cfg.al_tobaro                 = 2000;       // Timeout in ms (100 - 5000) before shutoff on autoland. "esc_nfly" must be undershot for that timeperiod
@@ -200,7 +200,7 @@ static void resetConf(void)
     // Autostart
     cfg.as_lnchr                  = 200;        // [50 - 250 no dimension DEFAULT:200] Autostart initial launchrate to get off the ground. When as_stdev is exceeded, as_clmbr takes over
     cfg.as_clmbr                  = 100;        // [50 - 250cm/s DEFAULT:100] Autostart climbrate in cm/s after liftoff! Autostart Rate in cm/s will be lowered when approaching targethight.
-    cfg.as_trgt                   = 0;          // [0 - 15m  DEFAULT:0 (0 = Disable)] Autostart Targethight in m Note: use 3m or more
+    cfg.as_trgt                   = 2;          // [0 - 15m  DEFAULT:0 (0 = Disable)] Autostart Targethight in m Note: use 3m or more
     cfg.as_stdev                  = 10;         // [5 - 20 no dimension DEFAULT:10] This is the std. deviation of the variometer when a liftoff is assumed. The higher the more unsensitive.
 
     cfg.vbatscale                 = 110;
@@ -210,10 +210,10 @@ static void resetConf(void)
 
     // Radio
     parseRcChannels("AETR1234");
-    cfg.rc_db                     = 15;         // Crashpilot: A little deadband will not harm our crappy RC
-    cfg.rc_dbyw                   = 15;         // Crashpilot: A little deadband will not harm our crappy RC
-    cfg.rc_dbah                   = 50;         // Crashpilot: A little deadband will not harm our crappy RC
-    cfg.rc_dbgps                  = 5;          // Additional Deadband for all GPS functions;
+    cfg.rc_db                     = 20;         // Crashpilot: A little deadband will not harm our crappy RC
+    cfg.rc_dbyw                   = 20;         // Crashpilot: A little deadband will not harm our crappy RC
+    cfg.rc_dbah                   = 60;         // Crashpilot: A little deadband will not harm our crappy RC
+    cfg.rc_dbgps                  = 10;          // Additional Deadband for all GPS functions;
     cfg.devorssi                  = 0;          // Will take the last channel for RSSI value, so add one to rc_auxch, don't use that auxchannel unless you want it to trigger something
                                                 // Note Spektrum or Graupner will override that setting to 0.
     cfg.rssicut                   = 0;          // [0-80%][0 Disables] Below that percentage rssi will show zero.
@@ -226,8 +226,8 @@ static void resetConf(void)
     cfg.rc_killt                  = 0;          // Time in ms when your arm switch becomes a Killswitch, 0 disables the Killswitch, can not be used together with FEATURE_INFLIGHT_ACC_CAL
 
     // Motor/ESC/Servo
-//  cfg.esc_min                   = 1150;       // ORIG
-    cfg.esc_min                   = 1100;
+    cfg.esc_min                   = 1150;       // ORIG
+//  cfg.esc_min                   = 1100;
     cfg.esc_max                   = 1950;
     cfg.esc_moff                  = 1000;
     cfg.esc_nfly                  = 1300;       // This is the absolute throttle that kicks off the "has landed timer" if it is too low cfg.rc_min + 5% is taken. Also baselinethr for Autostart, also plausibility check for initial Failsafethrottle
@@ -284,30 +284,30 @@ static void resetConf(void)
     cfg.gps_maxangle              = 25;         // 10 - 45 Degree Maximal over all GPS bank angle
     cfg.gps_wp_radius             = 150;
 //  cfg.rtl_mnh                   = 20;         // (0 - 200m) Minimal RTL hight in m, 0 disables feature
-	  cfg.rtl_mnh                   = 0;          // (0 - 200m) Minimal RTL hight in m, 0 disables feature
+    cfg.rtl_mnh                   = 0;          // (0 - 200m) Minimal RTL hight in m, 0 disables feature
     cfg.rtl_cr                    = 80;         // [10 - 200cm/s] When rtl_mnh is defined this is the climbrate in cm/s
     cfg.rtl_mnd                   = 0;          // 0 Disables. Minimal distance for RTL in m, otherwise it will just autoland, prevent Failsafe jump in your face, when arming copter and turning off TX
     cfg.gps_rtl_flyaway           = 0;          // [0 - 100m] 0 Disables. If during RTL the distance increases beyond this value (in meters relative to RTL activation point), something is wrong, autoland
 
-    cfg.gps_yaw                   = 30;         // Thats the MAG P during GPS functions, substitute for "cfg.P8[PIDMAG]"
+    cfg.gps_yaw                   = 40;         // Thats the MAG P during GPS functions, substitute for "cfg.P8[PIDMAG]"
     cfg.nav_rtl_lastturn          = 1;          // 1 = when copter gets to home position it rotates it's head to takeoff direction independend of nav_controls_heading
 //  cfg.nav_slew_rate             = 30;         // was 30 and 50 before
     cfg.nav_slew_rate             = 20;         // was 30 and 50 before
     cfg.nav_tail_first            = 0;          // 1 = Copter comes back with ass first (only works with nav_controls_heading = 1)
-    cfg.nav_controls_heading      = 0;          // 1 = Nav controls YAW during WP ONLY
-//  cfg.nav_controls_heading      = 1;          // 1 = Nav controls YAW during WP ONLY
+//  cfg.nav_controls_heading      = 0;          // 1 = Nav controls YAW during WP ONLY
+    cfg.nav_controls_heading      = 1;          // 1 = Nav controls YAW during WP ONLY
     cfg.nav_speed_min             = 100;        // 10 - 200 cm/s don't set higher than nav_speed_max! That dumbness is not covered.
     cfg.nav_speed_max             = 350;        // 50 - 2000 cm/s don't set lower than nav_speed_min! That dumbness is not covered.
     cfg.nav_approachdiv           = 3;          // 2 - 10 This is the divisor for approach speed for wp_distance. Example: 400cm / 3 = 133cm/s if below nav_speed_min it will be adjusted
-    cfg.nav_tiltcomp              = 20;         // 0 - 100 (20 TestDefault) Only arducopter really knows. Dfault was 54. This is some kind of a hack of them to reach actual nav_speed_max. 54 was Dfault, 0 disables
-    cfg.nav_ctrkgain              = 0.5f;       // 0 - 10.0 (0.5 TestDefault) (Floatvariable) That is the "Crosstrackgain" APM Dfault is "1". "0" disables
+    cfg.nav_tiltcomp              = 50;         // 0 - 100 (20 TestDefault) Only arducopter really knows. Dfault was 54. This is some kind of a hack of them to reach actual nav_speed_max. 54 was Dfault, 0 disables
+    cfg.nav_ctrkgain              = 1;       // 0 - 10.0 (0.5 TestDefault) (Floatvariable) That is the "Crosstrackgain" APM Dfault is "1". "0" disables
 
     // Failsafe Variables
     cfg.fs_delay                  = 10;         // in 0.1s (10 = 1sec)
     cfg.fs_ofdel                  = 200;        // in 0.1s (200 = 20sec)
     cfg.fs_rcthr                  = 1200;       // decent Dfault which should always be below hover throttle for people.
     cfg.fs_ddplt                  = 0;		      // EXPERIMENTAL Time in sec when FS is engaged after idle on THR/YAW/ROLL/PITCH, 0 disables max 250
-    cfg.fs_jstph                  = 0;          // Does just PH&Autoland an not RTL, use this in difficult areas with many obstacles to avoid RTL crash into something
+    cfg.fs_jstph                  = 1;          // Does just PH&Autoland an not RTL, use this in difficult areas with many obstacles to avoid RTL crash into something
     cfg.fs_nosnr                  = 1;          // When snr_land is set to 1, it is possible to ignore that on Failsafe, because FS over a tree could turn off copter
 
     // serial (USART1) baudrate
