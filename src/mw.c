@@ -354,6 +354,8 @@ void loop(void)
         if (feature(FEATURE_FAILSAFE))
         {
             ChkFailSafe();                                           // Only check Failsafe if copter is armed
+            if (failsafeCnt > 2)f.FAILSAFE = 1;                      // Failsafe info for Minimosd
+	        else f.FAILSAFE = 0;
         }
         else
         {
