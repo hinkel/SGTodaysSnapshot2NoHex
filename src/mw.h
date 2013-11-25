@@ -141,6 +141,7 @@ enum   // This is limited to 32 Boxes!!
     BOXBEEPERON,
     BOXHEADADJ,
     BOXOSD,
+    BOXFAILSAFE,
     CHECKBOXITEMS
 };
 
@@ -428,6 +429,7 @@ typedef struct flags_t
     uint8_t GPS_FIX_HOME;
     uint8_t SMALL_ANGLES_25;
     uint8_t CALIBRATE_MAG;
+    uint8_t FAILSAFE;
 } flags_t;
 
 extern float    gyroData[3];
